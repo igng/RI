@@ -1,3 +1,2 @@
 # RI
-MATLAB/Maxima scripts
-Processing    scripts
+MATLAB/Maxima & Processing scripts
