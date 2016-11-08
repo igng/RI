@@ -28,7 +28,7 @@ void draw()
     ellipse(0, 0, 4*l, 4*l);
     ellipse(x, y, 30, 30);
     a = (x*x + y*y - l1*l1 - l2*l2)/(2*l1*l2);
-    qr[1] = atan2(gomito*sqrt(1 - a*a), a);
+    qr[1] = atan2(gomito*sqrt(abs(1 - a*a)), a);
     b1 = l1 + cos(qr[1])*l2;
     b2 = sin(qr[1])*l2;
     qr[0] = atan2(-b2*x + b1*y, b1*x + b2*y) - PI/2;
@@ -98,4 +98,6 @@ void keyPressed()
         qr[giunto] += 0.3;
     if (keyCode == RIGHT)
         qr[giunto] -= 0.3;
+    if (key == 'g')
+        gomito *= -1;
 }
