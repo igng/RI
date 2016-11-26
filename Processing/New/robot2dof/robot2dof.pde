@@ -6,7 +6,7 @@ float[] q = new float[n_link];
 float[] qr = new float[n_link];
 
 float l1 = l;
-float l2 = l;
+float l2 = 2*l;
 float a;
 int gomito = 1;
 float x;
@@ -17,15 +17,22 @@ float b2;    //beta
 
 void setup()
 {
-    size(450, 450);
+    size(700, 700);
 }
 
 void draw()
 {
     background(100);
     trace_mouse();
-    translate(225, 225);
-    ellipse(0, 0, 4*l, 4*l);
+    stroke(#FF0000);
+    text("q1: " + str(q[0]), 600, 60);
+    text("q2: " + str(q[1]), 600, 80);
+    text("x: " + str(x), 600, 100);
+    text("y: " + str(-y), 600, 120);
+    stroke(000000);
+    translate(l*3.5, l*3.5);
+    ellipse(0, 0, 2*(l1+l2), 2*(l1+l2));
+    ellipse(0, 0, 2*(l2-l), 2*(l2-l1));
     ellipse(x, y, 30, 30);
     a = (x*x + y*y - l1*l1 - l2*l2)/(2*l1*l2);
     qr[1] = atan2(gomito*sqrt(abs(1 - a*a)), a);
@@ -35,20 +42,14 @@ void draw()
     q[0] -= 0.05*(q[0] - qr[0]);
     q[1] -= 0.05*(q[1] - qr[1]);
     robot(0, 255, 0, 200, qr[0], qr[1]);
-    robot(255, 0, 0, 200, q[0], q[1]);
-    stroke(#FF0000);
-    text("q1: " + str(q[0]), 150, 160);
-    text("q2: " + str(q[1]), 150, 180);
-    text("x: " + str(x), 150, 200);
-    text("y: " + str(-y), 150, 220);
-    stroke(000000);
+    // robot(255, 0, 0, 200, q[0], q[1]);
 }
 
 void trace_mouse()
 {
     float x_tmp, y_tmp;
-    x_tmp = mouseX - 225;
-    y_tmp = mouseY - 225;
+    x_tmp = mouseX - l*3.5;
+    y_tmp = mouseY - l*3.5;
     
     if (x_tmp*x_tmp + y_tmp*y_tmp <= (l1+l2)*(l1+l2))
     {
@@ -61,14 +62,14 @@ void robot(int rr, int gg, int bb, int aa, float q1, float q2)
 {
     pushMatrix();
         rotate(q1);
-        link(rr, gg, bb, aa);
-        translate(0, l);
+        link(rr, gg, bb, aa, l1);
+        translate(0, l1);
         rotate(q2);
-        link(rr, gg, bb, aa);
+        link(rr, gg, bb, aa, l2);
     popMatrix();
 }
 
-void link(int rr, int gg, int bb, int aa)
+void link(int rr, int gg, int bb, int aa, float l)
 {
     fill(rr, gg, bb, aa);
     ellipse(0, 0, 2*r, 2*r);
@@ -80,8 +81,8 @@ void link(int rr, int gg, int bb, int aa)
 void mousePressed()
 {
     float x_tmp, y_tmp;
-    x_tmp = mouseX - 225;
-    y_tmp = mouseY - 225;
+    x_tmp = mouseX - l*3.5;
+    y_tmp = mouseY - l*3.5;
     
     if (x_tmp*x_tmp + y_tmp*y_tmp < (l1+l2)*(l1+l2))
     {

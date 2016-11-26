@@ -19,7 +19,7 @@ tollerance = 1e-3;
 error = zeros(1, max_iter*8);   % 8 paths
 q = zeros(2, max_iter*8);       
 L1 = 1*res;
-L2 = 2*res;
+L2 = 2*L1;
 re = L2+L1;
 ri = L2-L1;
 
