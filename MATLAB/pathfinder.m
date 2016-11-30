@@ -10,7 +10,7 @@ set(0, 'DefaultFigureWindowStyle', 'docked');
 %       gradient        = 2
 %       hybrid          = 3
 %       reverse         = 4
-algorithm = 4;
+algorithm = 1;
 draw = 1;       % draw the path
 T = 0.1;
 res = 1/T;      % resolution
@@ -42,22 +42,22 @@ p8 = [ri*cos(pi:-pi/180:pi/2); ri*sin(pi:-pi/180:pi/2)];    % int2
 if (draw)
     close(figure(1));
     figure(1);
-    plot(p1(1,:), p1(2,:));    
+    plot(p1(1,:), p1(2,:), 'lineWidth', 2);    
     hold on;
-    plot(p2(1,:), p2(2,:));    
-    plot(p3(1,:), p3(2,:));    
-    plot(p4(1,:), p4(2,:));    
-    plot(p5(1,:), p5(2,:));    
-    plot(p6(1,:), p6(2,:));    
-    plot(p7(1,:), p7(2,:));    
-    plot(p8(1,:), p8(2,:));    
-    legend('1', '2', '3', '4', '5', '6', '7', '8');
+    plot(p2(1,:), p2(2,:), 'lineWidth', 2);    
+    plot(p3(1,:), p3(2,:), 'lineWidth', 2);    
+    plot(p4(1,:), p4(2,:), 'lineWidth', 2);    
+    plot(p5(1,:), p5(2,:), 'lineWidth', 2);    
+    plot(p6(1,:), p6(2,:), 'lineWidth', 2);    
+    plot(p7(1,:), p7(2,:), 'lineWidth', 2);    
+    plot(p8(1,:), p8(2,:), 'black', 'lineWidth', 2);    
+    legend('1', '2', '3', '4', '5', '6', '7', '8', 'Location', 'NorthWest');
     grid on;
     hold off;
 end
 %%
 clc;
-q_curr = [pi/4; pi/4];
+q_curr = [pi/2; 0];
 
 syms q1 q2
 F = ([L1*cos(q1) + L2*cos(q1+q2); L1*sin(q1) + L2*sin(q1+q2)]);
@@ -69,13 +69,27 @@ switch (algorithm)
         fprintf('!!! WARNING: algorithm not selected\n\n');
     % Newton
     case 1,
-        q_curr = newton(tollerance, q_curr, F, J, (10:20), (10:20));
+        q_curr = newton(tollerance, q_curr, F, J, p1(1,:), p1(2,:));
+        q_curr = newton(tollerance, q_curr, F, J, p2(1,:), p2(2,:));
+        q_curr = newton(tollerance, q_curr, F, J, p3(1,:), p3(2,:));
+        q_curr = newton(tollerance, q_curr, F, J, p4(1,:), p4(2,:));
+        q_curr = newton(tollerance, q_curr, F, J, p5(1,:), p5(2,:));
+        q_curr = newton(tollerance, q_curr, F, J, p6(1,:), p6(2,:));
+        q_curr = newton(tollerance, q_curr, F, J, p7(1,:), p7(2,:));
+        newton(tollerance, q_curr, F, J, p8(1,:), p8(2,:));
     % Gradient
     case 2,
-        q_curr = gradient(tollerance, q_curr, F, J, (10:20), (10:20));
+        q_curr = gradient(tollerance, q_curr, F, J, p1(1,:), p1(2,:));
     % Hybrid
     case 3,
     % Reverse
     case 4,
-        q_curr = reverse(F, L1, L2, p1(1,:), p1(2,:));
+        reverse(F, L1, L2, p1(1,:), p1(2,:));
+        reverse(F, L1, L2, p2(1,:), p2(2,:));
+        reverse(F, L1, L2, p3(1,:), p3(2,:));
+        reverse(F, L1, L2, p4(1,:), p4(2,:));
+        reverse(F, L1, L2, p5(1,:), p5(2,:));
+        reverse(F, L1, L2, p6(1,:), p6(2,:));
+        reverse(F, L1, L2, p7(1,:), p7(2,:));
+        reverse(F, L1, L2, p8(1,:), p8(2,:));
 end
