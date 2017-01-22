@@ -5,6 +5,7 @@ boolean commute = false;         /* true = draw commutation line */
 boolean ending = false;          /* true = performing final approach */
 boolean traject = false;         /* true = compute trajectory */
 
+float flag = 0;
 float start_x, start_y, stop_x, stop_y;
 float c_gr, c_gf, c_rr, c_rf;
 
@@ -78,6 +79,7 @@ void mouseClicked()
         traj_old_x = start_x;
         traj_new_y = traj_old_y;
         traj_new_x = traj_old_x;
+        flag = 2;
     }
     else
     {
@@ -93,6 +95,7 @@ void mouseClicked()
         comm_old_x = red_falling(comm_old_y);
         comm_new_y = comm_old_y;
         comm_new_x = comm_old_x;
+        flag = 1;
         println();
         println("-----------------------------");
         println();
@@ -122,8 +125,10 @@ void create_reference()
 
 void display_points(float start_x, float start_y, float stop_x, float stop_y)
 {
-    green(start_x, start_y);
-    red(stop_x, stop_y);
+    if (flag > 0)
+        red(stop_x, stop_y);
+    if (flag > 1)
+        green(start_x, start_y);
 }
 
 void green(float x, float y)
