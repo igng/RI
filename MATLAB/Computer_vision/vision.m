@@ -8,7 +8,7 @@ set(0, 'DefaultFigureWindowStyle', 'docked');
 orig = imread('./pock_1.jpg');
 imgsize = size(orig);
 orig_gray = rgb2gray(orig);
-fin_img = imbinarize(orig_gray, 0.45);
+fin_img = imbinarize(orig_gray, 0.43);
 % I = ones(100, 100);
 % I(25:75, 25:75) = 0;
 % fin_img = I;
@@ -21,7 +21,7 @@ center = floor((size(fin_img)+1)/2);
 clc
 
 %% Image processing and pixel count
-res = 15;
+res = 36;
 d_angle = 180/res;
 theta = 0:d_angle:180;
 [R, xp] = radon(fin_img, theta);
@@ -68,12 +68,13 @@ for i = 1:2
     hold off;
 end
 tollerance = 0;
-c = p(1, :) - p(2, :);
-x_center = find(abs(c) < tollerance);
-while (length(x_center) ~= 1)
-    tollerance = tollerance + 0.1
-    x_center = find(abs(c) < tollerance);
+c = abs(p(1, :) - p(2, :));
+x_center = find(c < tollerance);
+while (isempty(x_center))
+    tollerance = tollerance + 0.1;
+    x_center = find(c < tollerance);
 end
+x_center = x_center(1);
 y_center = y_pol(x_center);
 figure(200);
 hold on;

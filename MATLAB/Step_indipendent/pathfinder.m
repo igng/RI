@@ -9,14 +9,14 @@ set(0, 'DefaultFigureWindowStyle', 'docked');
 %       newton          = 1
 %       gradient        = 2
 %       hybrid          = 3
-%       inverse         = 4
+%       backward        = 4
 
 algorithms = [1, 2, 4];
 draw = 1;       % draw the path
 T = 0.01;       % sampling time
-lambda = 10;     % convergence speed
+lambda = 10;    % convergence speed
 fprintf('T: %f => lambda < %f\t(current: %f)\n\n', T, 1/(10*T), lambda);
-disc = 20;      % value to discretize the path
+disc = 50;      % value to discretize the path
 L1 = 10;
 L2 = 2*L1;
 re = L2+L1; 
@@ -66,10 +66,10 @@ a = 1;
 for algorithm = algorithms
     q_curr = [-a*pi/2; a*pi];
     switch (algorithm)
-        case 0,
+        case 0
             fprintf('!!! WARNING: algorithm not selected\n\n');
         % Newton
-        case 1,
+        case 1
             q_curr = newton(disc, T, lambda, q_curr, F, J, p1(1,:), p1(2,:));
             q_curr = newton(disc, T, lambda, q_curr, F, J, p2(1,:), p2(2,:));
             q_curr = newton(disc, T, lambda, q_curr, F, J, p3(1,:), p3(2,:));
@@ -79,7 +79,7 @@ for algorithm = algorithms
             q_curr = newton(disc, T, lambda, q_curr, F, J, p7(1,:), p7(2,:));
             newton(disc, T, lambda, q_curr, F, J, p8(1,:), p8(2,:));
         % Gradient
-        case 2,
+        case 2
             q_curr = gradient(disc, T, lambda, q_curr, F, J, p1(1,:), p1(2,:));
             q_curr = gradient(disc, T, lambda, q_curr, F, J, p2(1,:), p2(2,:));
             q_curr = gradient(disc, T, lambda, q_curr, F, J, p3(1,:), p3(2,:));
@@ -89,16 +89,16 @@ for algorithm = algorithms
             q_curr = gradient(disc, T, lambda, q_curr, F, J, p7(1,:), p7(2,:));
             gradient(disc, T, lambda, q_curr, F, J, p8(1,:), p8(2,:));
         % Hybrid
-        case 3,
-        % inverse
-        case 4,
-            inverse(disc, F, L1, L2, p1(1,:), p1(2,:));
-            inverse(disc, F, L1, L2, p2(1,:), p2(2,:));
-            inverse(disc, F, L1, L2, p3(1,:), p3(2,:));
-            inverse(disc, F, L1, L2, p4(1,:), p4(2,:));
-            inverse(disc, F, L1, L2, p5(1,:), p5(2,:));
-            inverse(disc, F, L1, L2, p6(1,:), p6(2,:));
-            inverse(disc, F, L1, L2, p7(1,:), p7(2,:));
-            inverse(disc, F, L1, L2, p8(1,:), p8(2,:));
+        case 3
+        % Backward
+        case 4
+            backward(disc, F, L1, L2, p1(1,:), p1(2,:));
+            backward(disc, F, L1, L2, p2(1,:), p2(2,:));
+            backward(disc, F, L1, L2, p3(1,:), p3(2,:));
+            backward(disc, F, L1, L2, p4(1,:), p4(2,:));
+            backward(disc, F, L1, L2, p5(1,:), p5(2,:));
+            backward(disc, F, L1, L2, p6(1,:), p6(2,:));
+            backward(disc, F, L1, L2, p7(1,:), p7(2,:));
+            backward(disc, F, L1, L2, p8(1,:), p8(2,:));
     end
 end
