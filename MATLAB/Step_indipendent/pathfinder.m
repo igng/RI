@@ -14,15 +14,15 @@ set(0, 'DefaultFigureWindowStyle', 'docked');
 algorithms = [1, 2, 4];
 draw = 1;       % draw the path
 T = 0.01;       % sampling time
-lambda = 10;    % convergence speed
+lambda = 5;    % convergence speed
 fprintf('T: %f => lambda < %f\t(current: %f)\n\n', T, 1/(10*T), lambda);
-disc = 50;      % value to discretize the path
+disc = 100;      % value to discretize the path
 L1 = 10;
 L2 = 2*L1;
 re = L2+L1; 
 ri = L2-L1;
 
-% Direct kinematic
+% Forward kinematic
 %  ------------------------------
 % x = L1*cos(q1) + L2*cos(q1+q2);
 % x = L1*sin(q1) + L2*sin(q1+q2);
