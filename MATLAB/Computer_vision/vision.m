@@ -5,14 +5,15 @@ cd /home/igng/Università/'1° Anno'/'1° Semestre'/'Robotica Industriale'/MATLA
 set(0, 'DefaultFigureWindowStyle', 'docked');
 %% Acquisition and noise reduction
 
-orig = imread('./pock_1.jpg');
+orig = imread('./usb.jpg');
 imgsize = size(orig);
 orig_gray = rgb2gray(orig);
-fin_img = imbinarize(orig_gray, 0.43);
+fin_img = imbinarize(orig_gray, 0.39);
 % I = ones(100, 100);
 % I(25:75, 25:75) = 0;
 % fin_img = I;
 fin_img = imcomplement(fin_img);
+area = bwarea(fin_img);
 figure(100)
 imshow(orig)
 figure(200)
@@ -21,15 +22,19 @@ center = floor((size(fin_img)+1)/2);
 clc
 
 %% Image processing and pixel count
-res = 36;
+res = 12;
+min_grid = floor(sqrt(res));
+max_grid = (ceil(sqrt(res)));
 d_angle = 180/res;
 theta = 0:d_angle:180;
 [R, xp] = radon(fin_img, theta);
-% for i = 1:res + 1
-%     figure(i+1);
+% figure(50);
+% for i = 1:res
+%     s = subplot(max_grid, min_grid, i);
 %     plot(xp, R(:, i));
+%     axis(s, [-1000 1000 0 700]);
 %     grid on;
-%     str = sprintf('%d degree', theta(i));
+%     str = sprintf('%d', theta(i));
 %     title(str);
 % end
 %% Diagonals and center search
@@ -42,7 +47,7 @@ for i = 1:2
     [x, y] = ind2sub(size(R), idx);
     L = xp(x);
     col(1, i) = y;
-    angle = -(y - 1)*d_angle;
+    angle = -(y - 1)*d_angle
     mid_angle = mid_angle + angle;
     x_start = center(2) + L*cos(angle*pi/180);
     y_start = center(1) + L*sin(angle*pi/180);
@@ -64,6 +69,7 @@ for i = 1:2
     y_pol = polyval(coeffs, x_pol);
     p(i, :) = y_pol;
     plot(x_pol, p(i, :), 'r--');
+    max(R(:, y))
     R(:, y) = 0;
     hold off;
 end
