@@ -1,4 +1,4 @@
-# This file was saved at Tue Feb 14 2017 16:04:29 GMT+0100 (CET)
+# This file was saved at Thu Feb 16 2017 15:44:22 GMT+0100 (CET)
 # from file:///home/igng/Downloads/robo/mapeditor/index.html
 
 extra:
@@ -40,5 +40,5 @@ A A A                          A A A
 A A AAAAAAAAAAAAAAAAAAAAAAAAAAAA A A
 A A      A  A                    A A
 A AAAAA AAAAAA AAAAAAAAAAA AAAAAAA A
-A                                  A
-AAAAAAAAAAAAAAAAAA@AAAAAAAAAAAAAAAAA
+A                  @               A
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
