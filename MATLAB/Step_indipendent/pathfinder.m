@@ -11,13 +11,13 @@ set(0, 'DefaultFigureWindowStyle', 'docked');
 %       hybrid          = 3
 %       backward        = 4
 
-algorithms = [1, 2, 4];
+algorithms = [1, 2, 3, 4];
 draw = 1;       % draw the path
 T = 0.01;       % sampling time
-lambda = 5;    % convergence speed
-fprintf('T: %f => lambda < %f\t(current: %f)\n\n', T, 1/(10*T), lambda);
-disc = 100;      % value to discretize the path
-L1 = 10;
+lambda = 15;    % convergence speed
+disc = 1000;    % value to discretize the path
+% if L1 = 10, it will not work: Lipschitz condition not satisfied
+L1 = 1;
 L2 = 2*L1;
 re = L2+L1; 
 ri = L2-L1;
@@ -51,7 +51,7 @@ if (draw)
     plot(p8(1,:), p8(2,:), 'black', 'lineWidth', 2);    
     legend('1', '2', '3', '4', '5', '6', '7', '8', 'Location', 'NorthWest');
     grid on;
-    axis([-30 30 -30 30]);
+    axis([-re re -re re]);
     hold off;
 end
 %%
@@ -70,35 +70,43 @@ for algorithm = algorithms
             fprintf('!!! WARNING: algorithm not selected\n\n');
         % Newton
         case 1
-            q_curr = newton(disc, T, lambda, q_curr, F, J, p1(1,:), p1(2,:));
-            q_curr = newton(disc, T, lambda, q_curr, F, J, p2(1,:), p2(2,:));
-            q_curr = newton(disc, T, lambda, q_curr, F, J, p3(1,:), p3(2,:));
-            q_curr = newton(disc, T, lambda, q_curr, F, J, p4(1,:), p4(2,:));
-            q_curr = newton(disc, T, lambda, q_curr, F, J, p5(1,:), p5(2,:));
-            q_curr = newton(disc, T, lambda, q_curr, F, J, p6(1,:), p6(2,:));
-            q_curr = newton(disc, T, lambda, q_curr, F, J, p7(1,:), p7(2,:));
-            newton(disc, T, lambda, q_curr, F, J, p8(1,:), p8(2,:));
+            q_curr = newton(re, disc, T, lambda, q_curr, F, J, p1(1,:), p1(2,:));
+            q_curr = newton(re, disc, T, lambda, q_curr, F, J, p2(1,:), p2(2,:));
+            q_curr = newton(re, disc, T, lambda, q_curr, F, J, p3(1,:), p3(2,:));
+            q_curr = newton(re, disc, T, lambda, q_curr, F, J, p4(1,:), p4(2,:));
+            q_curr = newton(re, disc, T, lambda, q_curr, F, J, p5(1,:), p5(2,:));
+            q_curr = newton(re, disc, T, lambda, q_curr, F, J, p6(1,:), p6(2,:));
+            q_curr = newton(re, disc, T, lambda, q_curr, F, J, p7(1,:), p7(2,:));
+            newton(re, disc, T, lambda, q_curr, F, J, p8(1,:), p8(2,:));
         % Gradient
         case 2
-            q_curr = gradient(disc, T, lambda, q_curr, F, J, p1(1,:), p1(2,:));
-            q_curr = gradient(disc, T, lambda, q_curr, F, J, p2(1,:), p2(2,:));
-            q_curr = gradient(disc, T, lambda, q_curr, F, J, p3(1,:), p3(2,:));
-            q_curr = gradient(disc, T, lambda, q_curr, F, J, p4(1,:), p4(2,:));
-            q_curr = gradient(disc, T, lambda, q_curr, F, J, p5(1,:), p5(2,:));
-            q_curr = gradient(disc, T, lambda, q_curr, F, J, p6(1,:), p6(2,:));
-            q_curr = gradient(disc, T, lambda, q_curr, F, J, p7(1,:), p7(2,:));
-            gradient(disc, T, lambda, q_curr, F, J, p8(1,:), p8(2,:));
+            q_curr = gradient(re, disc, T, lambda, q_curr, F, J, p1(1,:), p1(2,:));
+            q_curr = gradient(re, disc, T, lambda, q_curr, F, J, p2(1,:), p2(2,:));
+            q_curr = gradient(re, disc, T, lambda, q_curr, F, J, p3(1,:), p3(2,:));
+            q_curr = gradient(re, disc, T, lambda, q_curr, F, J, p4(1,:), p4(2,:));
+            q_curr = gradient(re, disc, T, lambda, q_curr, F, J, p5(1,:), p5(2,:));
+            q_curr = gradient(re, disc, T, lambda, q_curr, F, J, p6(1,:), p6(2,:));
+            q_curr = gradient(re, disc, T, lambda, q_curr, F, J, p7(1,:), p7(2,:));
+            gradient(re, disc, T, lambda, q_curr, F, J, p8(1,:), p8(2,:));
         % Hybrid
         case 3
+            q_curr = hybrid(re, disc, T, lambda, q_curr, F, J, p1(1,:), p1(2,:));
+            q_curr = hybrid(re, disc, T, lambda, q_curr, F, J, p2(1,:), p2(2,:));
+            q_curr = hybrid(re, disc, T, lambda, q_curr, F, J, p3(1,:), p3(2,:));
+            q_curr = hybrid(re, disc, T, lambda, q_curr, F, J, p4(1,:), p4(2,:));
+            q_curr = hybrid(re, disc, T, lambda, q_curr, F, J, p5(1,:), p5(2,:));
+            q_curr = hybrid(re, disc, T, lambda, q_curr, F, J, p6(1,:), p6(2,:));
+            q_curr = hybrid(re, disc, T, lambda, q_curr, F, J, p7(1,:), p7(2,:));
+            hybrid(re, disc, T, lambda, q_curr, F, J, p8(1,:), p8(2,:));
         % Backward
         case 4
-            backward(disc, F, L1, L2, p1(1,:), p1(2,:));
-            backward(disc, F, L1, L2, p2(1,:), p2(2,:));
-            backward(disc, F, L1, L2, p3(1,:), p3(2,:));
-            backward(disc, F, L1, L2, p4(1,:), p4(2,:));
-            backward(disc, F, L1, L2, p5(1,:), p5(2,:));
-            backward(disc, F, L1, L2, p6(1,:), p6(2,:));
-            backward(disc, F, L1, L2, p7(1,:), p7(2,:));
-            backward(disc, F, L1, L2, p8(1,:), p8(2,:));
+            backward(re, disc, F, L1, L2, p1(1,:), p1(2,:));
+            backward(re, disc, F, L1, L2, p2(1,:), p2(2,:));
+            backward(re, disc, F, L1, L2, p3(1,:), p3(2,:));
+            backward(re, disc, F, L1, L2, p4(1,:), p4(2,:));
+            backward(re, disc, F, L1, L2, p5(1,:), p5(2,:));
+            backward(re, disc, F, L1, L2, p6(1,:), p6(2,:));
+            backward(re, disc, F, L1, L2, p7(1,:), p7(2,:));
+            backward(re, disc, F, L1, L2, p8(1,:), p8(2,:));
     end
 end

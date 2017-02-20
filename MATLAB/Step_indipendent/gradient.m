@@ -1,4 +1,4 @@
-function q_curr = gradient(disc, T, lambda, q_start, F, J, X, Y)
+function q_curr = gradient(re, disc, T, lambda, q_start, F, J, X, Y)
     q_curr = q_start;
     F_plot = zeros(disc, 2);
     i = 1;
@@ -13,8 +13,8 @@ function q_curr = gradient(disc, T, lambda, q_start, F, J, X, Y)
     end
     scatter(F_plot(:,1), F_plot(:,2), 50, 'blue', 's');
     hold on;
-    scatter(X, Y, 50, 'red', '*');
+%     scatter(X, Y, 50, 'red', '*');
     grid on;
     legend('Gradient');
-    axis([-30 30 -30 30]);
+    axis([-re re -re re]);
 end

@@ -1,4 +1,4 @@
-function q_curr = backward(disc, F, L1, L2, X, Y)
+function q_curr = backward(re, disc, F, L1, L2, X, Y)
     i = 1;
     F_plot = zeros(disc, 2);
     figure(40);
@@ -20,8 +20,8 @@ function q_curr = backward(disc, F, L1, L2, X, Y)
     end
     scatter(F_plot(:,1), F_plot(:,2), 50, 'green', 's');
     hold on;
-    scatter(X, Y, 50, 'red', '*');
+%     scatter(X, Y, 50, 'red', '*');
     grid on;
     legend('Backward');
-    axis([-30 30 -30 30]);
+    axis([-re re -re re]);
 end
