@@ -1,0 +1,14 @@
+Maxima:
+-------
+* Mostrare che prodotto di matrici di rotazione non è commutativo nello spazio
+* Dimostrare analiticamente l’equivalenza: Rx(theta) = Ry(%pi/2) *Rz(theta)*Ry(-%pi/2)
+* Procedura #1: ingresso vettore e angolo, uscita R(v, theta) calcolata con la matrice esponenziale
+* Procedura #2: ingresso vettore e angolo, uscita R(v, theta) calcolata con la formula di Rodrigues
+* Procedura #3: ingressi gli output delle prime due procedura, uscita True or False se gli ingressi coincidono o meno
+* Procedura #4: ingresso matrice R, uscita versore di rotazione (uno dei due)
+* Procedura #5: ingressi matrice R e versore di rotazione calcolato alla proc. #4, uscita theta
+	Poichè eigenvectors non è precisa, lui ha detto di fare una procedura che calcola gli autovettori con la formula (lambda*I - R)
+* Procedura #6: ingresso matrice di Denavit-Hartenberg, uscita matrice Q di cinematica diretta
+- Procedura #7: Ingresso matrice di Denavit-Hartenberg, calcolare Bt(q), Bw(q), Ti per ogni link i e T totale
+- Procedura #8: Calcolare le equazioni del moto per tutte le strutture portanti
+- Implementare algoritmo che calcola la radice quadrata e calcolarla per i valori 2, 3, 4, ...
