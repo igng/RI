@@ -4,6 +4,6 @@ function Q = antropomorfo(q, L)
              [q(2), 0, 0, L(2)];
              [q(3), 0, 0, L(3)]];
 
-    Q = DH_full(table);
+    Q = DH_full(table, L);
 
 end

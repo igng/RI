@@ -1,18 +1,6 @@
-function eq = motion_equations(Q, q, M, I, t, i)
+function eqs = motion_equations(L, q, t)
 
-    d = Q(1:3, 4);
-    R = Q(1:3, 1:3);
-    qp = diff(q,t);
-    dp = diff(d, t);
-    Jt = subs(dp, qp, ones(1,6));
-    Bt = simplify(M(1:i)*(transpose(Jt)*Jt));
-    Tt = (qp(1:i)*Bt*transpose(qp(1:i)))/2;
-    Rp = diff(R, t);
-    Sw = simplify(Rp*transpose(R));
-    w = [Sw(3,2), Sw(1,3), Sw(2,1)];
-    Jw = subs(w, qp, ones(1,6));
-    Bw = simplify((Jw)*R*I(1:3, 3*(i-1) + 1:3*(i))*transpose(R)*transpose(Jw));
-    Tw = (qp(1:i)*Bw*transpose(qp(1:i)))/2;
-    eq = Tt + Tw;
-
+    qp = diff(q, t);
+    dL = diff(L, q)
+    
 end

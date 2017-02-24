@@ -5,5 +5,7 @@ function [t, q, L, M, I] = initiate()
     L = initiate_length();
     M = initiate_mass();
     I = initiate_inertia();
-
+    fprintf('\n------------------------------------');
+    fprintf('\n----- Initialization completed -----\n');
+    fprintf('------------------------------------\n');
 end

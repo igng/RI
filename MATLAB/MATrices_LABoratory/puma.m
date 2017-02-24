@@ -7,7 +7,7 @@ function Q = puma(q, L)
              [q(5), 0, -pi/2, 0]
              [q(6), L(6), 0, 0]];
 
-    Q = DH_full(table);
+    Q = DH_full(table, L);
 %     fprintf('Forward position kinematic\n');
 %     Q(1:3, 4)
 
