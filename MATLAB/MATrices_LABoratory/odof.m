@@ -1,6 +1,6 @@
-function Q = odof(q, L)
+function Qs = odof(q, L)
 
     table = [q(1), 0, 0, L(1)];
-    Q = DH_full(table, L);
+    Qs = to_barycenters(table, L);
 
 end

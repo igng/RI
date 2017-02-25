@@ -2,7 +2,7 @@ function R = exponential(versor, angle)
 
     if (~isnumeric(versor))
        fprintf('==> ERROR: Input vector needs to be numerical, not symbolic\n');
-       fprintf('  => Returning zeros matrix');
+       fprintf('  => Returning zeros matrix\n');
        R = zeros(3);
        return;
     end
