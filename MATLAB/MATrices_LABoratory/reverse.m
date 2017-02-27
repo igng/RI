@@ -1,6 +1,6 @@
 function [versor, angle] = reverse(R)
     if (~is_rotational(R))
-        fprintf('==> ERROR: R is not a rotational matirx\n');
+        fprintf('==> ERROR: matrix is not a rotational matirx\n');
         fprintf('  => Returning zeros versor and zero angle\n');
         versor = zeros(1,3);
         angle = 0;
