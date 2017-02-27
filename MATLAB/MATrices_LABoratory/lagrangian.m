@@ -1,7 +1,6 @@
 function Lag = lagrangian(Qs, qp, qvp, M, I, t)
 
     len = length(Qs(1,1,:));        % number of links
-    B = sym(zeros(len, len, len));
     Tt_sum = 0;
     Tw_sum = 0;
     U_sum = 0;
@@ -23,7 +22,6 @@ function Lag = lagrangian(Qs, qp, qvp, M, I, t)
         Jw = subs(Jw, qvp, qp);
         Bw = simplify((Jw).'*R*I(1:3, 3*(i-1) + 1:3*(i))*(R).'*(Jw));
         Tw = (qp(1:i)*Bw*(qp(1:i)).')/2;
-        B(:, :, i) = Bt + Bw;
         Tt_sum = Tt_sum + Tt;
         Tw_sum = Tw_sum + Tw;
         U_sum = U_sum + M(i)*[0, 0, 9.8]*d;
