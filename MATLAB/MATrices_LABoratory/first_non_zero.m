@@ -1,10 +1,10 @@
-function [flag, index] = first_non_zero(S, L, i)
+function [flag, i] = first_non_zero(S, m)
     flag = 0;
+    i = 1;
     for j = 1:3
-        if (S(i, j) && L(i,j))
+        if ((S(m, j) ~= 0))
             flag = 1;
-            index = j;
-            break
+            i = j;
         end
     end
 end

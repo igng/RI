@@ -10,17 +10,17 @@ function [versor, angle] = reverse(R)
     I = eye(3);
     S = antisimmetric(versor);
     Ssquare = S^2;
-    left_cosine = (R + transpose(R) - 2*I)/2;
+    left_cosine = (R + R.' - 2*I)/2;
     for i = 1:3
-        [flag, j] = first_non_zero(Ssquare, left_cosine, i);
+        [flag, j] = first_non_zero(Ssquare, i);
         if (flag)
             break
         end
     end
     c = -left_cosine(i,j)/(Ssquare(i,j)) + 1;
-    left_sine = (R - transpose(R))/2;
+    left_sine = (R - R.')/2;
     for i = 1:3
-        [flag, j] = first_non_zero(S, left_sine, i);
+        [flag, j] = first_non_zero(S, i);
         if (flag)
             break
         end

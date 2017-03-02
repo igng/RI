@@ -22,6 +22,6 @@ function R = rodrigues(versor, angle)
     c = cos(angle);
     s = sin(angle);
     
-    R = simplify(I + (1-c)*S^2 + s*S);
+    R = (I + (1-c)*S^2 + s*S);
 
 end
